@@ -12,6 +12,7 @@ namespace WebApplication1.Controllers
     {
         private readonly UserService _userService = userService;
         private readonly GenerateTokenService _generateTokenService = generateTokenService;
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {

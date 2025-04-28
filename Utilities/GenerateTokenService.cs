@@ -19,14 +19,14 @@ namespace WebApplication1.Utilities
             }
             ;
             claims.AddRange(user.Role.Select(role => new Claim(ClaimTypes.Role, role)));
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
+                issuer: _configuration["JwtSettings:Issuer"],
+                audience: _configuration["JwtSettings:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(double.Parse(_configuration["Jwt:ExpiresInHours"]!)),
+                expires: DateTime.Now.AddHours(double.Parse(_configuration["JwtSettings:ExpiresInHours"]!)),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
