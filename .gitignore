@@ -1,0 +1,12 @@
+﻿# .vs folder
+.vs/
+
+# Thư mục bin và obj
+bin/
+obj/
+
+# Các file khác không cần thiết
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
