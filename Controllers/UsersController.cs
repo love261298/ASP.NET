@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Model;
 using WebApplication1.Services;
@@ -16,9 +17,22 @@ namespace WebApplication1.Controllers
 
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<IActionResult> Get(string id)
+        public async Task<IActionResult> GetById(string id)
         {
             var user = await _userService.GetByIdAsync(id);
+            return user is null ? NotFound() : Ok(user);
+        }
+
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<IActionResult> GetByToken()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return BadRequest("User ID not found.");
+            }
+            var user = await _userService.GetByIdAsync(userId);
             return user is null ? NotFound() : Ok(user);
         }
 

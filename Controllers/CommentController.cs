@@ -26,9 +26,14 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> Create(Comment comment)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (comment == null || comment.BlogId == null || userId == null)
+
+            if (comment == null || userId == null)
             {
                 return BadRequest();
+            }
+            if (comment.BlogId == null && comment.ChatId == null)
+            {
+                return BadRequest("BlogId is required.");
             }
             comment.UserId = userId;
             await _commentService.AddAsync(comment);

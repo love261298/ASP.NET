@@ -46,5 +46,18 @@ namespace WebApplication1.Services
             var filter = Builders<Comment>.Filter.Eq(c => c.UserId, userId);
             return await _comments.Find(filter).ToListAsync();
         }
+
+        public async Task<List<Comment>> GetCommentsByChatIdAsync(string chatId)
+        {
+            var filter = Builders<Comment>.Filter.Eq(c => c.ChatId, chatId);
+            var comments = await _comments.Find(filter).ToListAsync();
+            var tasks = comments.Select(async c =>
+            {
+                c.Profile = await _userService.GetByIdAsync(c.UserId!);
+                return c;
+            });
+            return [.. (await Task.WhenAll(tasks))];
+        }
+
     }
 }

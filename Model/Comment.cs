@@ -17,6 +17,10 @@ namespace WebApplication1.Model
         [BsonRepresentation(BsonType.ObjectId)]
         public string? BlogId { get; set; }
 
+        [BsonElement("chatId")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? ChatId { get; set; }
+
         [BsonElement("profile")]
         public User? Profile { get; set; }
 

@@ -28,6 +28,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<GenerateTokenService>();
 builder.Services.AddScoped<BlogService>();
 builder.Services.AddScoped<CommentService>();
+builder.Services.AddScoped<ChatService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

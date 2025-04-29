@@ -19,5 +19,6 @@ namespace WebApplication1.Data
         public IMongoCollection<Order> Orders => _database.GetCollection<Order>("Orders");
         public IMongoCollection<Blog> Blogs => _database.GetCollection<Blog>("Blogs");
         public IMongoCollection<Comment> Comments => _database.GetCollection<Comment>("Comments");
+        public IMongoCollection<Chat> Chats => _database.GetCollection<Chat>("Chats");
     }
 }
