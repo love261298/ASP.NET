@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace WebApplication1.Model
 {
-    public class Blog
+    public class Comment
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -13,23 +13,15 @@ namespace WebApplication1.Model
         [BsonRepresentation(BsonType.ObjectId)]
         public string? UserId { get; set; }
 
-        [BsonElement("coverImage")]
-        public string? CoverImage { get; set; }
+        [BsonElement("blogId")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? BlogId { get; set; }
 
         [BsonElement("profile")]
-        public string? Profile { get; set; }
-
-        [BsonElement("Title")]
-        public string? Title { get; set; }
+        public User? Profile { get; set; }
 
         [BsonElement("description")]
         public string? Description { get; set; }
-
-        [BsonElement("comment")]
-        public List<Comment>? Comment { get; set; }
-
-        [BsonElement("share")]
-        public int? Share { get; set; }
 
         [BsonElement("createdAt")]
         public DateTime CreatedAt { get; } = DateTime.UtcNow;

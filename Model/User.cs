@@ -15,12 +15,19 @@ namespace WebApplication1.Model
         [BsonElement("email")]
         public string? Email { get; set; }
 
+        [BsonElement("image")]
+        public string? Image { get; set; }
+
         [BsonElement("password")]
         public string? Password { get; set; }
 
         [BsonElement("createdAt")]
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; } = DateTime.Now;
+
+        [BsonElement("modifiedAt")]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime ModifiedAt { get; set; } = DateTime.Now;
 
         [BsonElement("role")]
         public List<string> Role { get; set; } = new List<string> { "user" };

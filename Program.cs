@@ -26,6 +26,9 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<GenerateTokenService>();
+builder.Services.AddScoped<BlogService>();
+builder.Services.AddScoped<CommentService>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {

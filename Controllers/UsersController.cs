@@ -28,6 +28,7 @@ namespace WebApplication1.Controllers
         {
             var userDB = await _userService.GetByIdAsync(user.Id!);
             if (userDB == null) return BadRequest();
+            user.ModifiedAt = DateTime.UtcNow;
             await _userService.UpdateAsync(user);
             return NoContent();
         }

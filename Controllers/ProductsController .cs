@@ -15,7 +15,7 @@ public class ProductsController(ProductService productService, OrderService orde
     public async Task<IActionResult> Get()
     {
         var products = await _productService.GetAllAsync();
-        if (products == null || products.Count == 0)
+        if (products == null)
         {
             return NotFound("No products found.");
         }
@@ -61,6 +61,7 @@ public class ProductsController(ProductService productService, OrderService orde
         existingProduct.Quantity = updatedProduct.Quantity ?? existingProduct.Quantity;
         existingProduct.InventoryStatus = updatedProduct.InventoryStatus ?? existingProduct.InventoryStatus;
         existingProduct.Rating = updatedProduct.Rating ?? existingProduct.Rating;
+        existingProduct.ModifiedAt = DateTime.UtcNow;
 
         await _productService.UpdateAsync(existingProduct);
         return Ok(existingProduct);

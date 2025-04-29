@@ -43,6 +43,7 @@ namespace WebApplication1.Controllers
             var existingOrder = await _orderService.GetByIdAsync(order.Id!);
             var existingProduct = await _productService.GetByIdAsync(order.ProductId!);
             if (existingOrder == null || existingProduct == null) return BadRequest();
+            order.ModifiedAt = DateTime.UtcNow;
             await _orderService.UpdateAsync(order);
             return NoContent();
         }
