@@ -35,6 +35,10 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> Get(string id)
         {
             var chat = await _chatService.GetByIdAsync(id);
+            if (chat == null)
+            {
+                return NotFound();
+            }
             chat.Comment = await _commentService.GetCommentsByChatIdAsync(chat.Id!);
             return chat is null ? NotFound() : Ok(chat);
         }

@@ -58,6 +58,5 @@ namespace WebApplication1.Services
             });
             return [.. (await Task.WhenAll(tasks))];
         }
-
     }
 }

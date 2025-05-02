@@ -19,7 +19,11 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> Get()
         {
             var blogs = await _blogService.GetAllAsync();
-            blogs.ForEach(async b => b.Comment = await _commentService.GetCommentsByBlogIdAsync(b.Id!));
+            var tasks = blogs.Select(async c =>
+            {
+                c.Comment = await _commentService.GetCommentsByBlogIdAsync(c.Id!);
+            });
+            await Task.WhenAll(tasks);
             return Ok(blogs);
         }
 
@@ -28,6 +32,10 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> Get(string id)
         {
             var blog = await _blogService.GetByIdAsync(id);
+            if (blog == null)
+            {
+                return NotFound();
+            }
             blog.Comment = await _commentService.GetCommentsByBlogIdAsync(blog.Id!);
             return blog is null ? NotFound() : Ok(blog);
         }
